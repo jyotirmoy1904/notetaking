@@ -75,5 +75,5 @@ app.post('/delete',(req, res) => {
 
 //server listening
 app.listen(8000, '0.0.0.0', () =>  {
-    console.log('Server at http://localhost:3000');
+    console.log('Server at port 8000');
 });
