@@ -7,46 +7,16 @@
     <body>
         <div class="container">
             <h2> NOTES</h2>
-            <button class="btn btn-success" data-toggle="modal" data-target="#MyModalAdd"> Add New</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#MyModalUpdate"> Update Data</button>
             <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-            <form action="/sort" method="post">
-            <select name="filtering" id="selectfrom">
-                {{#each SubjectName}}
-                    <option>{{ SubjectName }}</option>
-                {{/each}}
-            </select>
-            <input type="submit" id='query' value="Filter"/>
-            </form>
-            <table class="table table-striped" id="subjecttable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Subject Name</th>
-                        <th>Topic</th>
-                        <th>Creation Date</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each results}}
-                    <tr>
-                        <td>{{ ID }}</td>
-                        <td>{{ SubjectName }} </td>
-                       <td>{{ Topic }}</td>
-                        <td>{{ CreationDate }}</td>
-                        <td><a href="#viewData" type="button" class="btn btn-info" data-toggle="modal"  data-description="{{ Description }}">View</a></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-        <!-- Model Add New -->
-        <form action="/save" method="post">
-        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>    
+        <!-- Model Update -->
+        <form action="/update" method="post">
+        <div class="modal fade" id="myModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> Add New Subject</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"> </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -92,36 +62,8 @@
             </div> 
         </div>
         </form>
-        <!-- View Modal -->
-        <div class="modal fade" id="viewData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> View Data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body"> 
-                        <input type="text" id="desc" readonly />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div> 
-        </div>
     <script src="/assets/js/jquery-3.5.1.js"></script>
     <script src="/assets/js/bootstrap.js"></script>
-    <script>
-        $(function () {
-            $("#viewData").on('show.bs.modal', function (event)  {
-                var button = $(event.relatedTarget);
-                var desc = button.data('description');
-                var modal = $(this);
-                modal.find('#desc').val(desc);
-            });
-        });
-    </script>
+
     </body>
 </html>

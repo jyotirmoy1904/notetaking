@@ -32,15 +32,14 @@ app.use('/assets',express.static(__dirname+'/public'));
 
 //route for homepage
 app.get('/',(req,res) => {
-    let sql = "SELECT * FROM articles;SELECT DISTINCT SubjectName FROM articles";
+    let sql = "SELECT * FROM articles;SELECT DISTINCT SubjectName FROM articles;";
     let query1 = conn.query(sql,[2,1], (err, results,fields) => {
         if(err)  throw err;
         res.render('Subjects',{
             results: results[0],
-            dropdown: results[1]
+            SubjectName: results[1],
         });
     });
-    
 });
 //route for dropdown menu
 app.post('/sort',(req,res) => {
@@ -49,30 +48,22 @@ app.post('/sort',(req,res) => {
         if(err)  throw err;
         res.render('Subjects',{
             results: results[0],
-            dropdown: results[1]
+            SubjectName: results[1],
         });
     });
 });
 //route for new article
 app.post('/save',(req, res) => {
     let date  = new Date();
-    let data = {SubjectName: req.body.SubjectName, Topic: req.body.Topic, CreationDate: date};
+    let data = {SubjectName: req.body.SubjectName, Topic: req.body.Topic, CreationDate: date, Description: req.body.Description};
     let sql = "INSERT INTO articles SET ?";
     let query = conn.query(sql, data, (err, results) => {
         if(err)  throw err;
     });
         res.redirect('/');
 });
-/*
-//route for update article
-app.post('/article/update',(req,res) => {
-    //let  data={Body=body.product.Body};
-    let sql="UPDATE articles SET Body = '"+req.body.Description+"' WHERE Topic = '"+req.body.Topic;
-    let query  = conn.query(sql,(err,results) => {
-        if(err)  throw err;
-        res.redirect('/article');
-    });
-});*/
+let cachedValue;
+
 //route for delete article
 app.post('/delete',(req, res) => {
     let sql = "DELETE FROM articles WHERE ID="+req.body.ID;
@@ -83,6 +74,6 @@ app.post('/delete',(req, res) => {
   });
 
 //server listening
-app.listen(8000, () =>  {
+app.listen(8000, '0.0.0.0', () =>  {
     console.log('Server at http://localhost:3000');
-})
+});
