@@ -32,24 +32,26 @@ app.use('/assets',express.static(__dirname+'/public'));
 
 //route for homepage
 app.get('/',(req,res) => {
-    let sql = "SELECT * FROM articles;SELECT DISTINCT SubjectName FROM articles";
-    let query1 = conn.query(sql,[2,1], (err, results,fields) => {
+    let sql = "SELECT * FROM articles;SELECT DISTINCT SubjectName FROM articles;SELECT ID FROM articles;";
+    let query1 = conn.query(sql,[3,1], (err, results,fields) => {
         if(err)  throw err;
         res.render('Subjects',{
             results: results[0],
-            dropdown: results[1]
+            SubjectName: results[1],
+            ViewArticles: results[2]
         });
     });
     
 });
 //route for dropdown menu
 app.post('/sort',(req,res) => {
-    let sql = "SELECT * FROM articles WHERE SubjectName = '"+req.body.filtering+"';SELECT DISTINCT SubjectName FROM articles";
-    let query1 = conn.query(sql,[2,1], (err, results,fields) => {
+    let sql = "SELECT * FROM articles WHERE SubjectName = '"+req.body.filtering+"';SELECT DISTINCT SubjectName FROM articles;SELECT ID FROM articles WHERE SubjectName= '"+req.body.filtering+"'";
+    let query1 = conn.query(sql,[3,1], (err, results,fields) => {
         if(err)  throw err;
         res.render('Subjects',{
             results: results[0],
-            dropdown: results[1]
+            SubjectName: results[1],
+            ViewArticles: results[2]
         });
     });
 });
@@ -63,16 +65,19 @@ app.post('/save',(req, res) => {
     });
         res.redirect('/');
 });
-/*
-//route for update article
-app.post('/article/update',(req,res) => {
-    //let  data={Body=body.product.Body};
-    let sql="UPDATE articles SET Body = '"+req.body.Description+"' WHERE Topic = '"+req.body.Topic;
+let cachedValue;
+//route for viewing articles
+app.post('/view',(req,res) => {
+    cachedValue=req.body.viewing;
+    let sql= "SELECT * FROM articles where ID="+cachedValue;
     let query  = conn.query(sql,(err,results) => {
         if(err)  throw err;
-        res.redirect('/article');
+        res.render('View',{
+            results:results
+        });
+        
     });
-});*/
+});
 //route for delete article
 app.post('/delete',(req, res) => {
     let sql = "DELETE FROM articles WHERE ID="+req.body.ID;
