@@ -17,14 +17,6 @@
             </select>
             <input type="submit" id='query' value="Filter"/>
             </form>
-             <form action="/view" method="post">
-            <select name="viewing" id="selectfrom">
-                {{#each ViewArticles}}
-                    <option>{{ ID }}</option>
-                {{/each}}
-            </select>
-            <input type="submit" id='view' value="View"/>
-            </form>
             <table class="table table-striped" id="subjecttable">
                 <thead>
                     <tr>
@@ -32,6 +24,7 @@
                         <th>Subject Name</th>
                         <th>Topic</th>
                         <th>Creation Date</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +34,7 @@
                         <td>{{ SubjectName }} </td>
                        <td>{{ Topic }}</td>
                         <td>{{ CreationDate }}</td>
-
+                        <td><a href="#viewData" type="button" class="btn btn-info" data-toggle="modal"  data-description="{{ Description }}">View</a></td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -99,8 +92,36 @@
             </div> 
         </div>
         </form>
+        <!-- View Modal -->
+        <div class="modal fade" id="viewData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> View Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"> 
+                        <input type="text" id="desc" readonly />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div> 
+        </div>
     <script src="/assets/js/jquery-3.5.1.js"></script>
     <script src="/assets/js/bootstrap.js"></script>
-
+    <script>
+        $(function () {
+            $("#viewData").on('show.bs.modal', function (event)  {
+                var button = $(event.relatedTarget);
+                var desc = button.data('description');
+                var modal = $(this);
+                modal.find('#desc').val(desc);
+            });
+        });
+    </script>
     </body>
 </html>
