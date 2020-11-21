@@ -88,6 +88,6 @@ app.post('/delete',(req, res) => {
   });
 
 //server listening
-app.listen(8000, '127.0.0.1', () =>  {
+app.listen(8000, '0.0.0.0', () =>  {
     console.log('Server at http://localhost:3000');
 });
