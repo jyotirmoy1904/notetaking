@@ -74,7 +74,7 @@ app.post('/delete',(req, res) => {
   });
 //route  for update articles
 app.post('/update',(req,res) => {
-    let sql = "UPDATE TABLE articles SET Description = '"+req.body.desc+"' WHERE ID="+req.body.sid;
+    let sql = "UPDATE articles SET Description = '"+req.body.desc+"' WHERE ID="+req.body.sid;
     let  query=conn.query(sql, (err, results) =>{
         if(err) throw err;
          res.redirect('/');

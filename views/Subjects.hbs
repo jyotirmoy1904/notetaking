@@ -35,7 +35,7 @@
                        <td>{{ Topic }}</td>
                         <td>{{ CreationDate }}</td>
                         <td><a href="#viewData" type="button" class="btn btn-info" data-toggle="modal"  data-description="{{ Description }}">View</a>
-                            <a href="#updateData" type="button" class="btn btn-info" data-toggle="modal" data-sid={{ ID }} data-SubjectName="{{ SubjectName }}" data-Topic="{{ Topic }}" data-description="{{ Description }}">Update</a>
+                            <a href="#updateData" type="button" class="btn btn-info" data-toggle="modal" data-sid={{ ID }} data-sub="{{ SubjectName }}" data-topic="{{ Topic }}" data-description="{{ Description }}">Update</a>
                         </td>
                     </tr>
                     {{/each}}
@@ -120,15 +120,24 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"> Update an article</h5>
-                        <input type="text" class="form-control" id="sid" name="sid"  readonly/>
-                        <input type="text" class="form-control" id="SubjectName"  readonly/>
-                        <input type="text" class="form-control" id="Topic"  readonly/>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body"> 
-                        <textarea class="form-control" name="desc" id="desc" min-width="100%" ></textarea>
+                        <div class="form-group">
+                            ID: <input type="text" class="form-control" id="sid" name="sid"  readonly/>
+                        </div>
+                        <div class="form-group">
+                            Subject Name: <input type="text" class="form-control" id="sub"  readonly/>
+                        </div>
+                        <div class="form-group">
+                            Topic: <input type="text" class="form-control" id="topic"  readonly/>
+                        </div>
+                        <div class="form-group">
+                            Description:<br>
+                            <textarea class="form-control" name="desc" id="desc" min-width="100%" ></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -150,14 +159,14 @@
             });
             $("#updateData").on('show.bs.modal', function (event)  {
                 var button = $(event.relatedTarget);
-                var Topic = button.data('Topic');
-                var SubjectName = button.data('SubjectName');
+                var topic = button.data('topic');
+                var sub = button.data('sub');
                 var sid = button.data('sid');
                 var desc = button.data('description');
                 var modal = $(this);
                 modal.find('#sid').val(sid);
-                modal.find('#SubjectName').val(SubjectName);
-                modal.find('#Topic').val(Topic);
+                modal.find('#sub').val(sub);
+                modal.find('#topic').val(topic);
                 modal.find('#desc').val(desc);
             });
         });
