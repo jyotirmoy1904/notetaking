@@ -72,7 +72,14 @@ app.post('/delete',(req, res) => {
         res.redirect('/');
     });
   });
-
+//route  for update articles
+app.post('/update',(req,res) => {
+    let sql = "UPDATE TABLE articles SET Description = '"+req.body.desc+"' WHERE ID="+req.body.sid;
+    let  query=conn.query(sql, (err, results) =>{
+        if(err) throw err;
+         res.redirect('/');
+    });
+});
 //server listening
 app.listen(8000, '0.0.0.0', () =>  {
     console.log('Server at port 8000');
