@@ -34,7 +34,9 @@
                         <td>{{ SubjectName }} </td>
                        <td>{{ Topic }}</td>
                         <td>{{ CreationDate }}</td>
-                        <td><a href="#viewData" type="button" class="btn btn-info" data-toggle="modal"  data-description="{{ Description }}">View</a></td>
+                        <td><a href="#viewData" type="button" class="btn btn-info" data-toggle="modal"  data-description="{{ Description }}">View</a>
+                            <a href="#updateData" type="button" class="btn btn-info" data-toggle="modal" data-sid={{ ID }} data-sub="{{ SubjectName }}" data-topic="{{ Topic }}" data-description="{{ Description }}">Update</a>
+                        </td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -103,7 +105,7 @@
                         </button>
                     </div>
                     <div class="modal-body"> 
-                        <input type="text" id="desc" readonly />
+                        <textarea class="form-control" id="desc" min-width="100%" readonly></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -111,6 +113,40 @@
                 </div>
             </div> 
         </div>
+        <!-- Update  Modal -->
+        <form action="/update" method="post">
+        <div class="modal fade" id="updateData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> Update an article</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"> 
+                        <div class="form-group">
+                            ID: <input type="text" class="form-control" id="sid" name="sid"  readonly/>
+                        </div>
+                        <div class="form-group">
+                            Subject Name: <input type="text" class="form-control" id="sub"  readonly/>
+                        </div>
+                        <div class="form-group">
+                            Topic: <input type="text" class="form-control" id="topic"  readonly/>
+                        </div>
+                        <div class="form-group">
+                            Description:<br>
+                            <textarea class="form-control" name="desc" id="desc" min-width="100%" ></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        </form>
     <script src="/assets/js/jquery-3.5.1.js"></script>
     <script src="/assets/js/bootstrap.js"></script>
     <script>
@@ -119,6 +155,18 @@
                 var button = $(event.relatedTarget);
                 var desc = button.data('description');
                 var modal = $(this);
+                modal.find('#desc').val(desc);
+            });
+            $("#updateData").on('show.bs.modal', function (event)  {
+                var button = $(event.relatedTarget);
+                var topic = button.data('topic');
+                var sub = button.data('sub');
+                var sid = button.data('sid');
+                var desc = button.data('description');
+                var modal = $(this);
+                modal.find('#sid').val(sid);
+                modal.find('#sub').val(sub);
+                modal.find('#topic').val(topic);
                 modal.find('#desc').val(desc);
             });
         });
