@@ -19,7 +19,7 @@ const conn = mysql.createConnection({
 
 //connecting to database
 conn.connect((err) =>{
-    if(err) throw err;
+    if(err) {res.redirect("/")};
     console.log('Connected to database');
 });
 
@@ -45,7 +45,7 @@ app.post("/login", (req, res) => {
 app.post("/signup", (req, res) => {
   let sql =" CREATE TABLE "+req.body.userid+" (ID INT NOT NULL AUTO_INCREMENT, SubjectName VARCHAR(20) NOT NULL, Topic VARCHAR(20) NOT NULL, Description TEXT, CreationDate DATETIME, PRIMARY KEY(ID, Topic))";
   let query1 = conn.query(sql, (err, results) => {
-    if (err) throw err;
+    if (err) {res.redirect("/")};
     res.redirect("/");
   });
 });
@@ -53,7 +53,7 @@ app.post("/signup", (req, res) => {
 app.get("/gen", (req, res) => {
   let sql = "SELECT * FROM " +username+";SELECT DISTINCT SubjectName FROM "+username+";";
   let query1 = conn.query(sql, [2, 1], (err, results, fields) => {
-    if (err) throw err;
+    if (err) {res.redirect("/")};
     res.render("Subjects", {
       results: results[0],
       SubjectName: results[1],
@@ -65,7 +65,7 @@ app.get("/gen", (req, res) => {
 app.post("/sort", (req, res) => {
   let sql = "SELECT * FROM " +username+" WHERE SubjectName = '" +req.body.filtering+"';SELECT DISTINCT SubjectName FROM " +username+"";
   let query = conn.query(sql, [2, 1], (err, results) => {
-    if (err) throw err;
+    if (err) {res.redirect("/")};
     res.render("Subjects", {
       results: results[0],
       SubjectName: results[1],
@@ -78,7 +78,7 @@ app.post("/save", (req, res) => {
   let data = {SubjectName: req.body.SubjectName, Topic: req.body.Topic, CreationDate: date, Description: req.body.Description,};
   let sql = "INSERT INTO "+username+" SET ?";
   let query = conn.query(sql, data, (err, results) => {
-    if (err) throw err;
+    if (err) {res.redirect("/")};
   });
   res.redirect("/gen");
 });
@@ -86,7 +86,7 @@ app.post("/save", (req, res) => {
 app.post("/delete", (req, res) => {
   let sql = "DELETE FROM "+username+" WHERE ID=" +req.body.ID;
   let query = conn.query(sql, (err, results) => {
-    if (err) throw err;
+    if (err) {res.redirect("/")};
     res.redirect("/gen");
   });
 });
@@ -94,7 +94,7 @@ app.post("/delete", (req, res) => {
 app.post("/update", (req, res) => {
   let sql = "UPDATE " +username+" SET Description = '" +req.body.desc+"' WHERE ID=" +req.body.sid;
   let query = conn.query(sql, (err, results) => {
-    if (err) throw err;
+    if (err) {res.redirect("/")};
     res.redirect("/gen");
   });
 });
