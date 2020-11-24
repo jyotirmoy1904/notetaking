@@ -10692,7 +10692,7 @@ a.text-dark:focus {
 footer {
   position: fixed;
   left: 0;
-  bottom: 10;
+  bottom: 0;
   width: 100%;
   background-color: #a683e3;
   text-align: center;
