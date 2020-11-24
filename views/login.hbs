@@ -1,0 +1,86 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>NOTETAKING APP</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="box">
+        <a href="/">
+            <h2> YOUR NOTES</h2>
+        </a>
+        <hr>
+        <p>Login to view the notes you stored, or sign up to start saving your notes.</p>
+        <img src="/assets/images/user2.png" class="user-image" alt="user-image">
+        <button class="btn btn-success" data-toggle="modal" data-target="#myModalLogin"> Login</button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+    </div>
+    <!-- Model Update -->
+    <form action="/login" method="POST">
+        <div class="modal fade" id="myModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> Login to view your notes:</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" name="usern" class="form-control" placeholder="user name" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Delete Modal -->
+    <form action="/signup" method="post">
+        <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> Register an account: </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" name="userid" class="form-control" placeholder="Enter a unique username"
+                            required>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" name="fname" class="form-control" placeholder="First Name" required>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" name="lname" class="form-control" placeholder="Last Name" required>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" name="email" class="form-control" placeholder="e-mail ID" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Sign up!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="/assets/js/jquery-3.5.1.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+
+</body>
+<footer>
+    Made by Jyotirmoy & Jyoti
+</footer>
+
+</html>

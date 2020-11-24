@@ -1,50 +1,66 @@
-<html lang ="en">
-    <head>
-        <meta charset="utf-8">
-        <title>NOTES</title>
-        <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>NOTES</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="container">
+        <a href="/">
+            <h2> YOUR NOTES</h2>
+        </a>
+        <br>
         <div class="container">
-            <h2> NOTES</h2>
-            <button class="btn btn-success" data-toggle="modal" data-target="#MyModalAdd"> Add New</button>
-            <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-            <form action="/sort" method="post">
-            <select name="filtering" id="selectfrom">
-                {{#each SubjectName}}
-                    <option>{{ SubjectName }}</option>
-                {{/each}}
-            </select>
-            <input type="submit" id='query' value="Filter"/>
-            </form>
-            <table class="table table-striped" id="subjecttable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Subject Name</th>
-                        <th>Topic</th>
-                        <th>Creation Date</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each results}}
-                    <tr>
-                        <td>{{ ID }}</td>
-                        <td>{{ SubjectName }} </td>
-                       <td>{{ Topic }}</td>
-                        <td>{{ CreationDate }}</td>
-                        <td><a href="#viewData" type="button" class="btn btn-info" data-toggle="modal"  data-description="{{ Description }}">View</a>
-                            <a href="#updateData" type="button" class="btn btn-info" data-toggle="modal" data-sid={{ ID }} data-sub="{{ SubjectName }}" data-topic="{{ Topic }}" data-description="{{ Description }}">Update</a>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <div class="float-left">
+                <button class="btn btn-success" data-toggle="modal" data-target="#MyModalAdd"> Add New</button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
+            </div>
+            <div class="float-right">
+                <form action="/sort" method="post">
+                    <select name="filtering" id="selectfrom">
+                        {{#each SubjectName}}
+                        <option>{{ SubjectName }}</option>
+                        {{/each}}
+                    </select>
+                    <input type="submit" id='query' class="btn btn-primary" value="Filter" />
+                </form>
+            </div>
         </div>
-        <!-- Model Add New -->
-        <form action="/save" method="post">
-        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <table class="table table-striped" id="subjecttable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Subject Name</th>
+                    <th>Topic</th>
+                    <th>Creation Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each results}}
+                <tr>
+                    <td>{{ ID }}</td>
+                    <td>{{ SubjectName }} </td>
+                    <td>{{ Topic }}</td>
+                    <td>{{ CreationDate }}</td>
+                    <td><a href="#viewData" type="button" class="btn btn-info" data-toggle="modal"
+                            data-description="{{ Description }}">View</a>
+                        <a href="#updateData" type="button" class="btn btn-info" data-toggle="modal" data-sid={{ ID }}
+                            data-sub="{{ SubjectName }}" data-topic="{{ Topic }}"
+                            data-description="{{ Description }}">Update</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <!-- Model Add New -->
+    <form action="/save" method="post">
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -55,9 +71,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" name="SubjectName" class="form-control" placeholder="Subject Name" required>
+                            <input type="text" name="SubjectName" class="form-control" placeholder="Subject Name"
+                                required>
                         </div>
-                      <div class="form-group">
+                        <div class="form-group">
                             <input type="text" name="Topic" class="form-control" placeholder="Title" required>
                         </div>
                         <div class="form-group form-group-lg">
@@ -69,12 +86,13 @@
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
-        </form>
-        <!-- Delete Modal -->
-        <form action="/delete" method="post">
-        <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </form>
+    <!-- Delete Modal -->
+    <form action="/delete" method="post">
+        <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -83,39 +101,42 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body"> 
-                        <input type="text" name="ID" class="form-control" placeholder="Enter ID of article to be deleted" required>
+                    <div class="modal-body">
+                        <input type="text" name="ID" class="form-control"
+                            placeholder="Enter ID of article to be deleted" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Delete</button>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
-        </form>
-        <!-- View Modal -->
-        <div class="modal fade" id="viewData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> View Data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body"> 
-                        <textarea class="form-control" id="desc" min-width="100%" readonly></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+    </form>
+    <!-- View Modal -->
+    <div class="modal fade" id="viewData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> View Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div> 
+                <div class="modal-body">
+                    <textarea class="form-control" id="desc" min-width="100%" readonly></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-        <!-- Update  Modal -->
-        <form action="/update" method="post">
-        <div class="modal fade" id="updateData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+    <!-- Update  Modal -->
+    <form action="/update" method="post">
+        <div class="modal fade" id="updateData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -124,19 +145,19 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body"> 
+                    <div class="modal-body">
                         <div class="form-group">
-                            ID: <input type="text" class="form-control" id="sid" name="sid"  readonly/>
+                            ID: <input type="text" class="form-control" id="sid" name="sid" readonly />
                         </div>
                         <div class="form-group">
-                            Subject Name: <input type="text" class="form-control" id="sub"  readonly/>
+                            Subject Name: <input type="text" class="form-control" id="sub" readonly />
                         </div>
                         <div class="form-group">
-                            Topic: <input type="text" class="form-control" id="topic"  readonly/>
+                            Topic: <input type="text" class="form-control" id="topic" readonly />
                         </div>
                         <div class="form-group">
                             Description:<br>
-                            <textarea class="form-control" name="desc" id="desc" min-width="100%" ></textarea>
+                            <textarea class="form-control" name="desc" id="desc" min-width="100%"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -144,20 +165,20 @@
                         <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
-        </form>
+    </form>
     <script src="/assets/js/jquery-3.5.1.js"></script>
     <script src="/assets/js/bootstrap.js"></script>
     <script>
         $(function () {
-            $("#viewData").on('show.bs.modal', function (event)  {
+            $("#viewData").on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var desc = button.data('description');
                 var modal = $(this);
                 modal.find('#desc').val(desc);
             });
-            $("#updateData").on('show.bs.modal', function (event)  {
+            $("#updateData").on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var topic = button.data('topic');
                 var sub = button.data('sub');
@@ -171,5 +192,9 @@
             });
         });
     </script>
-    </body>
+</body>
+<footer>
+    Made by Jyotirmoy & Jyoti
+</footer>
+
 </html>
