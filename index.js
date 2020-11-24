@@ -43,10 +43,7 @@ app.post("/login", (req, res) => {
 });
 //route for signup
 app.post("/signup", (req, res) => {
-  let sql =
-    " CREATE TABLE " +
-    req.body.userid +
-    " (ID INT NOT NULL AUTO_INCREMENT, SubjectName VARCHAR(20) NOT NULL, Topic VARCHAR(20) NOT NULL, Description TEXT, CreationDate DATETIME, PRIMARY KEY(ID, Topic))";
+  let sql =" CREATE TABLE "+req.body.userid+" (ID INT NOT NULL AUTO_INCREMENT, SubjectName VARCHAR(20) NOT NULL, Topic VARCHAR(20) NOT NULL, Description TEXT, CreationDate DATETIME, PRIMARY KEY(ID, Topic))";
   let query1 = conn.query(sql, (err, results) => {
     if (err) throw err;
     res.redirect("/");
@@ -54,12 +51,7 @@ app.post("/signup", (req, res) => {
 });
 //route for homepage
 app.get("/gen", (req, res) => {
-  let sql =
-    "SELECT * FROM " +
-    username +
-    ";SELECT DISTINCT SubjectName FROM " +
-    username +
-    ";";
+  let sql = "SELECT * FROM " +username+";SELECT DISTINCT SubjectName FROM "+username+";";
   let query1 = conn.query(sql, [2, 1], (err, results, fields) => {
     if (err) throw err;
     res.render("Subjects", {
@@ -70,14 +62,7 @@ app.get("/gen", (req, res) => {
 });
 //route for dropdown menu
 app.post("/sort", (req, res) => {
-  let sql =
-    "SELECT * FROM " +
-    username +
-    " WHERE SubjectName = '" +
-    req.body.filtering +
-    "';SELECT DISTINCT SubjectName FROM " +
-    username +
-    "";
+  let sql = "SELECT * FROM " +username+" WHERE SubjectName = '" +req.body.filtering+"';SELECT DISTINCT SubjectName FROM " +username+"";
   let query = conn.query(sql, [2, 1], (err, results) => {
     if (err) throw err;
     res.render("Subjects", {
@@ -89,13 +74,8 @@ app.post("/sort", (req, res) => {
 //route for new article
 app.post("/save", (req, res) => {
   let date = new Date();
-  let data = {
-    SubjectName: req.body.SubjectName,
-    Topic: req.body.Topic,
-    CreationDate: date,
-    Description: req.body.Description,
-  };
-  let sql = "INSERT INTO " + username + " SET ?";
+  let data = {SubjectName: req.body.SubjectName, Topic: req.body.Topic, CreationDate: date, Description: req.body.Description,};
+  let sql = "INSERT INTO "+username+" SET ?";
   let query = conn.query(sql, data, (err, results) => {
     if (err) throw err;
   });
@@ -103,7 +83,7 @@ app.post("/save", (req, res) => {
 });
 //route for delete article
 app.post("/delete", (req, res) => {
-  let sql = "DELETE FROM " + username + " WHERE ID=" + req.body.ID;
+  let sql = "DELETE FROM "+username+" WHERE ID=" +req.body.ID;
   let query = conn.query(sql, (err, results) => {
     if (err) throw err;
     res.redirect("/gen");
@@ -111,13 +91,7 @@ app.post("/delete", (req, res) => {
 });
 //route  for update "+username+"
 app.post("/update", (req, res) => {
-  let sql =
-    "UPDATE " +
-    username +
-    " SET Description = '" +
-    req.body.desc +
-    "' WHERE ID=" +
-    req.body.sid;
+  let sql = "UPDATE " +username+" SET Description = '" +req.body.desc+"' WHERE ID=" +req.body.sid;
   let query = conn.query(sql, (err, results) => {
     if (err) throw err;
     res.redirect("/gen");
