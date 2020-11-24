@@ -57,6 +57,7 @@ app.get("/gen", (req, res) => {
     res.render("Subjects", {
       results: results[0],
       SubjectName: results[1],
+      userdetails: username
     });
   });
 });
